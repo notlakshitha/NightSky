@@ -1,0 +1,1074 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport" />
+    <title>NightSky — Explore the Night Sky</title>
+    <meta
+      content="NightSky is a stargazing app: explore the star patterns, constellations and wonders of the night sky, one reading at a time."
+      name="description"
+    />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Manrope:wght@400;500;600&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link href="css/main.css" rel="stylesheet" />
+    <link href="css/guide.css" rel="stylesheet" />
+  </head>
+  <body class="phase-loading introdark">
+    <canvas class="" height="1250" id="sky" width="1800"> </canvas>
+    <canvas id="introgl"> </canvas>
+    <div id="frame">
+      <svg aria-hidden="true" id="frameSvg" viewbox="0 0 1440 1000">
+        <rect
+          fill="none"
+          height="999"
+          rx="14"
+          ry="14"
+          stroke="rgba(226,232,244,.34)"
+          stroke-dasharray="4 4"
+          stroke-width="1"
+          width="1439"
+          x=".5"
+          y=".5"
+        ></rect>
+        <circle cx="720" cy="1" fill="rgba(232,238,248,.86)" r="3.1"></circle>
+        <circle cx="1439" cy="500" fill="rgba(232,238,248,.86)" r="3.1"></circle>
+        <circle cx="720" cy="999" fill="rgba(232,238,248,.86)" r="3.1"></circle>
+        <circle cx="1" cy="500" fill="rgba(232,238,248,.86)" r="3.1"></circle>
+      </svg>
+      <img
+        alt=""
+        aria-hidden="true"
+        class="fc tl"
+        src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/9b7e639b-e3c8-4e7c-84ac-4053ffd62e0b_original.png"
+      />
+      <img
+        alt=""
+        aria-hidden="true"
+        class="fc tr"
+        src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/9b7e639b-e3c8-4e7c-84ac-4053ffd62e0b_original.png"
+      />
+      <img
+        alt=""
+        aria-hidden="true"
+        class="fc bl"
+        src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/9b7e639b-e3c8-4e7c-84ac-4053ffd62e0b_original.png"
+      />
+      <img
+        alt=""
+        aria-hidden="true"
+        class="fc br"
+        src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/9b7e639b-e3c8-4e7c-84ac-4053ffd62e0b_original.png"
+      />
+    </div>
+    <div class="ui off" id="hint">
+      <s> </s>
+      <span id="hintTxt"> Scroll to explore </span>
+      <s> </s>
+    </div>
+    <div class="ui" id="brand">
+      <svg
+        aria-hidden="true"
+        fill="none"
+        height="18"
+        stroke="var(--gold)"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="1.4"
+        viewbox="0 0 24 24"
+        width="18"
+      >
+        <path
+          d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"
+        ></path>
+        <path d="M20 3v4"></path>
+        <path d="M22 5h-4"></path>
+      </svg>
+      <span class="tracking-tight"> NightSky </span>
+    </div>
+    <div id="rail">
+      <svg aria-hidden="true" id="railSvg" viewbox="0 0 55 216">
+        <g fill="none" stroke="rgba(169,196,220,.42)" stroke-width="1">
+          <path d="M2,120 L27.5,262 L53,120" opacity=".34"></path>
+          <path d="M53,96 L27.5,-46 L2,96" opacity=".34"></path>
+          <rect height="207" rx="23" width="46" x="4.5" y="4.5"></rect>
+        </g>
+        <line
+          id="rlLine"
+          stroke="rgba(169,196,220,.85)"
+          stroke-width="1.2"
+          x1="27.5"
+          x2="27.5"
+          y1="42"
+          y2="174"
+        ></line>
+        <g fill="#fff" id="rlMarks">
+          <g transform="translate(27.5,68)">
+            <path class="s" d="M0,-6.4 Q1,-1 6.4,0 Q1,1 0,6.4 Q-1,1 -6.4,0 Q-1,-1 0,-6.4 Z"></path>
+            <circle class="o" fill="none" r="4.6" stroke="#fff" stroke-width="1.1"></circle>
+          </g>
+          <g transform="translate(27.5,108)">
+            <path class="s" d="M0,-6.4 Q1,-1 6.4,0 Q1,1 0,6.4 Q-1,1 -6.4,0 Q-1,-1 0,-6.4 Z"></path>
+            <circle class="o" fill="none" r="4.6" stroke="#fff" stroke-width="1.1"></circle>
+          </g>
+          <g transform="translate(27.5,148)">
+            <path class="s" d="M0,-6.4 Q1,-1 6.4,0 Q1,1 0,6.4 Q-1,1 -6.4,0 Q-1,-1 0,-6.4 Z"></path>
+            <circle class="o" fill="none" r="4.6" stroke="#fff" stroke-width="1.1"></circle>
+          </g>
+        </g>
+      </svg>
+      <img alt="" aria-hidden="true" id="railSym" />
+    </div>
+    <button aria-label="Toggle ambient sound" aria-pressed="false" class="ui rings" id="sound">
+      <svg aria-hidden="true" fill="none" height="18" viewbox="0 0 20 18" width="20">
+        <path d="M2 6.4h3.1L9.7 2.4v13.2L5.1 11.6H2z" fill="currentColor"></path>
+        <g fill="none" id="waves" stroke="currentColor" stroke-linecap="round" stroke-width="1.2">
+          <path d="M12.6 6.2c1.3 1.6 1.3 4 0 5.6"></path>
+          <path d="M15.2 4c2.4 2.9 2.4 7.1 0 10"></path>
+        </g>
+        <g class="hid" id="mute" stroke="currentColor" stroke-linecap="round" stroke-width="1.3">
+          <path d="M13.4 6.6l4.4 4.8M17.8 6.6l-4.4 4.8"></path>
+        </g>
+      </svg>
+    </button>
+    <button
+      aria-expanded="false"
+      aria-label="Open the star pattern index"
+      class="ui rings"
+      id="menuBtn"
+    >
+      <span class="bars">
+        <i> </i>
+        <i> </i>
+        <b> </b>
+      </span>
+    </button>
+    <button aria-label="Close" class="ui rings" id="closeBtn">
+      <svg
+        aria-hidden="true"
+        height="15"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-width="1.2"
+        viewbox="0 0 15 15"
+        width="15"
+      >
+        <path d="M1.6 1.6l11.8 11.8M13.4 1.6L1.6 13.4"></path>
+      </svg>
+    </button>
+    <div class="ui" id="actions">
+      <button
+        aria-controls="skyGuide"
+        aria-label="Open the sky guide"
+        class="guide-trigger"
+        id="guideBtn"
+        type="button"
+      >
+        <canvas aria-hidden="true" class="bglow"> </canvas>
+        <svg
+          aria-hidden="true"
+          fill="none"
+          height="16"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="1.5"
+          viewbox="0 0 24 24"
+          width="16"
+        >
+          <path
+            d="m10.065 12.493-6.18 1.318a.934.934 0 0 1-1.108-.702l-.537-2.15a1.07 1.07 0 0 1 .691-1.265l13.504-4.44"
+          ></path>
+          <path d="m13.56 11.747 4.332-.924"></path>
+          <path d="m16 21-3.105-6.21"></path>
+          <path
+            d="M16.485 5.94a2 2 0 0 1 1.455-2.425l1.09-.272a1 1 0 0 1 1.212.727l1.515 6.06a1 1 0 0 1-.727 1.213l-1.09.272a2 2 0 0 1-2.425-1.455z"
+          ></path>
+          <path d="m6.158 8.633 1.114 4.456"></path>
+          <path d="m8 21 3.105-6.21"></path>
+          <circle cx="12" cy="13" r="2"></circle>
+        </svg>
+        <span class="guide-label"> SKY GUIDE </span>
+      </button>
+      <div id="shareWrap">
+        <div id="shareRow">
+          <button aria-label="Copy link" data-share="copy">
+            <svg aria-hidden="true" viewbox="0 0 24 24">
+              <path
+                d="M10.6 13.4a4.6 4.6 0 006.5 0l2.6-2.6a4.6 4.6 0 10-6.5-6.5l-1.3 1.3a1 1 0 101.4 1.4l1.3-1.3a2.6 2.6 0 113.7 3.7l-2.6 2.6a2.6 2.6 0 01-3.7 0 1 1 0 10-1.4 1.4z"
+              ></path>
+              <path
+                d="M13.4 10.6a4.6 4.6 0 00-6.5 0l-2.6 2.6a4.6 4.6 0 106.5 6.5l1.3-1.3a1 1 0 10-1.4-1.4l-1.3 1.3a2.6 2.6 0 01-3.7-3.7l2.6-2.6a2.6 2.6 0 013.7 0 1 1 0 101.4-1.4z"
+              ></path>
+            </svg>
+          </button>
+          <a aria-label="Share on Facebook" data-share="fb" href="#" rel="noopener" target="_blank">
+            <svg aria-hidden="true" viewbox="0 0 24 24">
+              <path
+                d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.25-1.5 1.55-1.5H16.7V3.63A22 22 0 0014.3 3.5c-2.4 0-4 1.46-4 4.15V9.9H7.6V13h2.7v8z"
+              ></path>
+            </svg>
+          </a>
+          <a aria-label="Share on X" data-share="tw" href="#" rel="noopener" target="_blank">
+            <svg aria-hidden="true" viewbox="0 0 24 24">
+              <path
+                d="M17.3 3h3.3l-7.2 8.2L21.7 21h-6.4l-5-6.1L4.5 21H1.2l7.7-8.8L1.5 3H8l4.6 5.6zM16.1 19.1h1.8L7.1 4.8H5.1z"
+              ></path>
+            </svg>
+          </a>
+          <a aria-label="Share on LinkedIn" data-share="li" href="#" rel="noopener" target="_blank">
+            <svg aria-hidden="true" viewbox="0 0 24 24">
+              <path
+                d="M6.4 8.9v11.4H2.9V8.9zM4.65 3.4a2 2 0 110 4.05 2 2 0 010-4.05M20.9 13.9v6.4h-3.5v-5.6c0-1.4-.5-2.35-1.75-2.35-.95 0-1.5.64-1.75 1.26-.09.22-.11.53-.11.84v5.85H10.3s.05-9.5 0-10.5h3.5v1.5a3.5 3.5 0 013.15-1.74c2.3 0 3.95 1.5 3.95 4.72z"
+              ></path>
+            </svg>
+          </a>
+          <button aria-label="Share" data-share="native">
+            <svg aria-hidden="true" viewbox="0 0 24 24">
+              <path
+                d="M17.5 14.6a2.9 2.9 0 00-2 .8l-5-2.9a3 3 0 000-1l4.95-2.87a2.9 2.9 0 10-.95-2.13c0 .18.02.34.05.5L9.6 9.87a2.9 2.9 0 100 4.26l5 2.9c-.03.15-.05.3-.05.47a2.9 2.9 0 102.9-2.9z"
+              ></path>
+            </svg>
+          </button>
+        </div>
+        <button
+          aria-expanded="false"
+          aria-label="Share"
+          aria-controls="shareRow"
+          class="rings"
+          id="shareToggle"
+        >
+          <svg aria-hidden="true" viewbox="0 0 24 24">
+            <path
+              d="M17.5 14.6a2.9 2.9 0 00-2 .8l-5-2.9a3 3 0 000-1l4.95-2.87a2.9 2.9 0 10-.95-2.13c0 .18.02.34.05.5L9.6 9.87a2.9 2.9 0 100 4.26l5 2.9c-.03.15-.05.3-.05.47a2.9 2.9 0 102.9-2.9z"
+            ></path>
+          </svg>
+        </button>
+      </div>
+      <button aria-label="Browse star patterns in the index" id="join">
+        <canvas aria-hidden="true" class="bglow" height="64" width="206"> </canvas>
+        STAR MAP
+      </button>
+    </div>
+    <section aria-live="polite" id="panel">
+      <h1>
+        <span class="l1 fade" id="pT1"> </span>
+        <span class="l2 fade" id="pT2"> </span>
+      </h1>
+      <div class="body fade" id="pBody"></div>
+      <div class="motto fade" id="pMotto">
+        <img alt="" aria-hidden="true" class="glyph" id="pGlyph" />
+        <span id="pMottoTxt"> </span>
+      </div>
+      <button aria-label="Explore this star pattern" class="fade" id="pMore">
+        <canvas aria-hidden="true" class="bglow" height="53" width="188"> </canvas>
+        EXPLORE
+      </button>
+    </section>
+    <nav aria-label="Star patterns" id="menu">
+      <div id="menuList">
+        <ul id="menuInner">
+          <li>
+            <span class="txt" role="link" tabindex="0"> Aries </span>
+            <span aria-hidden="true" class="st"> ✦ </span>
+          </li>
+          <li>
+            <span class="txt" role="link" tabindex="0"> Taurus </span>
+            <span aria-hidden="true" class="st"> ✦ </span>
+          </li>
+          <li>
+            <span class="txt" role="link" tabindex="0"> Gemini </span>
+            <span aria-hidden="true" class="st"> ✦ </span>
+          </li>
+          <li>
+            <span class="txt" role="link" tabindex="0"> Cancer </span>
+            <span aria-hidden="true" class="st"> ✦ </span>
+          </li>
+          <li>
+            <span class="txt" role="link" tabindex="0"> Leo </span>
+            <span aria-hidden="true" class="st"> ✦ </span>
+          </li>
+          <li>
+            <span class="txt" role="link" tabindex="0"> Virgo </span>
+            <span aria-hidden="true" class="st"> ✦ </span>
+          </li>
+          <li>
+            <span class="txt" role="link" tabindex="0"> Libra </span>
+            <span aria-hidden="true" class="st"> ✦ </span>
+          </li>
+          <li>
+            <span class="txt" role="link" tabindex="0"> Scorpio </span>
+            <span aria-hidden="true" class="st"> ✦ </span>
+          </li>
+          <li>
+            <span class="txt" role="link" tabindex="0"> Sagittarius </span>
+            <span aria-hidden="true" class="st"> ✦ </span>
+          </li>
+          <li>
+            <span class="txt" role="link" tabindex="0"> Capricorn </span>
+            <span aria-hidden="true" class="st"> ✦ </span>
+          </li>
+          <li>
+            <span class="txt" role="link" tabindex="0"> Aquarius </span>
+            <span aria-hidden="true" class="st"> ✦ </span>
+          </li>
+          <li>
+            <span class="txt" role="link" tabindex="0"> Pisces </span>
+            <span aria-hidden="true" class="st"> ✦ </span>
+          </li>
+        </ul>
+      </div>
+      <span id="mark"> </span>
+      <p id="motto"></p>
+    </nav>
+    <div id="intro">
+      <div id="loading">
+        <svg
+          aria-hidden="true"
+          class="hexspin"
+          fill="none"
+          stroke="var(--gold-dim)"
+          stroke-width="1"
+          viewbox="0 0 68 68"
+        >
+          <circle cx="34" cy="34" r="31"></circle>
+          <circle cx="34" cy="34" r="20" stroke-dasharray="1.2 4"></circle>
+          <line x1="60.0" x2="65.0" y1="34.0" y2="34.0"></line>
+          <line x1="56.5" x2="60.8" y1="47.0" y2="49.5"></line>
+          <line x1="47.0" x2="49.5" y1="56.5" y2="60.8"></line>
+          <line x1="34.0" x2="34.0" y1="60.0" y2="65.0"></line>
+          <line x1="21.0" x2="18.5" y1="56.5" y2="60.8"></line>
+          <line x1="11.5" x2="7.2" y1="47.0" y2="49.5"></line>
+          <line x1="8.0" x2="3.0" y1="34.0" y2="34.0"></line>
+          <line x1="11.5" x2="7.2" y1="21.0" y2="18.5"></line>
+          <line x1="21.0" x2="18.5" y1="11.5" y2="7.2"></line>
+          <line x1="34.0" x2="34.0" y1="8.0" y2="3.0"></line>
+          <line x1="47.0" x2="49.5" y1="11.5" y2="7.2"></line>
+          <line x1="56.5" x2="60.8" y1="21.0" y2="18.5"></line>
+        </svg>
+        <p>Loading the stars…</p>
+      </div>
+      <div id="hero">
+        <div class="wrap">
+          <h1>
+            <span class="a"> Go outside. </span>
+            <span class="b"> Look up. </span>
+          </h1>
+          <svg aria-hidden="true" class="curve" fill="none" viewbox="0 0 300 120">
+            <path
+              d="M6 108 C 70 104, 132 96, 178 72 S 246 22, 292 6"
+              fill="none"
+              id="convexPath"
+              stroke="var(--gold)"
+              stroke-width="1.1"
+            ></path>
+            <g fill="var(--gold)" id="convexPts"></g>
+          </svg>
+          <p class="sub">Find a constellation.<br />Then find it in the sky.</p>
+
+          <div class="landing-button-row">
+            <button id="touchGrass" class="touch-grass">Touch grass</button
+            ><button id="enter">
+              <canvas aria-hidden="true" class="bglow" height="55" width="210"></canvas>Explore
+              stars
+            </button>
+          </div>
+          <button id="heroGuide" class="hero-guide">
+            See my sky <span aria-hidden="true">↗</span>
+          </button>
+        </div>
+      </div>
+      <div id="crestWrap">
+        <svg aria-hidden="true" viewbox="0 0 300 400">
+          <defs>
+            <lineargradient id="gold" x1="0" x2=".25" y1="0" y2="1">
+              <stop offset="0" stop-color="#dce8f2"></stop>
+              <stop offset=".42" stop-color="#b8cfe2"></stop>
+              <stop offset=".78" stop-color="#93afc8"></stop>
+              <stop offset="1" stop-color="#7690a8"></stop>
+            </lineargradient>
+          </defs>
+          <g fill="none" stroke="url(#gold)" stroke-linecap="round">
+            <circle cx="150" cy="165" r="146" stroke-width="4"></circle>
+            <circle
+              cx="150"
+              cy="165"
+              r="137"
+              stroke-dasharray="1.6 5.2"
+              stroke-width="1.8"
+            ></circle>
+            <circle cx="150" cy="165" r="128" stroke-width="2"></circle>
+            <circle cx="150" cy="165" r="96" stroke-width="2"></circle>
+            <circle cx="150" cy="165" r="86" stroke-dasharray="1.6 5.2" stroke-width="1.8"></circle>
+            <circle cx="150" cy="165" r="54" stroke-width="2"></circle>
+            <g stroke-width="1.6">
+              <line x1="82.1" x2="59.5" y1="97.1" y2="74.5"></line>
+              <line x1="125.2" x2="116.9" y1="72.3" y2="41.4"></line>
+              <line x1="174.8" x2="183.1" y1="72.3" y2="41.4"></line>
+              <line x1="217.9" x2="240.5" y1="97.1" y2="74.5"></line>
+              <line x1="242.7" x2="273.6" y1="140.2" y2="131.9"></line>
+              <line x1="242.7" x2="273.6" y1="189.8" y2="198.1"></line>
+              <line x1="217.9" x2="240.5" y1="232.9" y2="255.5"></line>
+              <line x1="174.8" x2="183.1" y1="257.7" y2="288.6"></line>
+              <line x1="125.2" x2="116.9" y1="257.7" y2="288.6"></line>
+              <line x1="82.1" x2="59.5" y1="232.9" y2="255.5"></line>
+              <line x1="57.3" x2="26.4" y1="189.8" y2="198.1"></line>
+              <line x1="57.3" x2="26.4" y1="140.2" y2="131.9"></line>
+            </g>
+            <path
+              d="M120 179 L136 159 L152 175 L170 151 L186 163"
+              stroke-dasharray="4 3 1 3"
+              stroke-width="1.6"
+            ></path>
+          </g>
+          <g fill="url(#gold)">
+            <path
+              d="M0,-6 Q1,-1 6,0 Q1,1 0,6 Q-1,1 -6,0 Q-1,-1 0,-6Z"
+              transform="translate(120.0 179.0) scale(0.9)"
+            ></path>
+            <path
+              d="M0,-6 Q1,-1 6,0 Q1,1 0,6 Q-1,1 -6,0 Q-1,-1 0,-6Z"
+              transform="translate(136.0 159.0) scale(0.6)"
+            ></path>
+            <path
+              d="M0,-6 Q1,-1 6,0 Q1,1 0,6 Q-1,1 -6,0 Q-1,-1 0,-6Z"
+              transform="translate(152.0 175.0) scale(0.7)"
+            ></path>
+            <path
+              d="M0,-6 Q1,-1 6,0 Q1,1 0,6 Q-1,1 -6,0 Q-1,-1 0,-6Z"
+              transform="translate(170.0 151.0) scale(1.0)"
+            ></path>
+            <path
+              d="M0,-6 Q1,-1 6,0 Q1,1 0,6 Q-1,1 -6,0 Q-1,-1 0,-6Z"
+              transform="translate(186.0 163.0) scale(0.65)"
+            ></path>
+            <path
+              d="M0,-6 Q1,-1 6,0 Q1,1 0,6 Q-1,1 -6,0 Q-1,-1 0,-6Z"
+              transform="translate(214.9 191.2) scale(0.55)"
+            ></path>
+            <path
+              d="M0,-6 Q1,-1 6,0 Q1,1 0,6 Q-1,1 -6,0 Q-1,-1 0,-6Z"
+              transform="translate(115.3 230.3) scale(0.45)"
+            ></path>
+            <path
+              d="M0,-6 Q1,-1 6,0 Q1,1 0,6 Q-1,1 -6,0 Q-1,-1 0,-6Z"
+              transform="translate(88.4 136.3) scale(0.6)"
+            ></path>
+            <path
+              d="M0,-6 Q1,-1 6,0 Q1,1 0,6 Q-1,1 -6,0 Q-1,-1 0,-6Z"
+              transform="translate(183.8 101.4) scale(0.5)"
+            ></path>
+            <path
+              d="M0,-6 Q1,-1 6,0 Q1,1 0,6 Q-1,1 -6,0 Q-1,-1 0,-6Z"
+              transform="translate(110.5 179.4) scale(0.4)"
+            ></path>
+            <path
+              d="M0,-6 Q1,-1 6,0 Q1,1 0,6 Q-1,1 -6,0 Q-1,-1 0,-6Z"
+              transform="translate(191.3 150.0) scale(0.45)"
+            ></path>
+            <path
+              d="M0,-6 Q1,-1 6,0 Q1,1 0,6 Q-1,1 -6,0 Q-1,-1 0,-6Z"
+              transform="translate(272.6 267.8) scale(0.7)"
+            ></path>
+            <path
+              d="M0,-6 Q1,-1 6,0 Q1,1 0,6 Q-1,1 -6,0 Q-1,-1 0,-6Z"
+              transform="translate(29.0 266.6) scale(0.55)"
+            ></path>
+            <path
+              d="M0,-6 Q1,-1 6,0 Q1,1 0,6 Q-1,1 -6,0 Q-1,-1 0,-6Z"
+              transform="translate(25.9 60.9) scale(0.8)"
+            ></path>
+            <path
+              d="M0,-6 Q1,-1 6,0 Q1,1 0,6 Q-1,1 -6,0 Q-1,-1 0,-6Z"
+              transform="translate(229.0 28.2) scale(0.6)"
+            ></path>
+            <path
+              d="M0,-6 Q1,-1 6,0 Q1,1 0,6 Q-1,1 -6,0 Q-1,-1 0,-6Z"
+              transform="translate(179.9 334.4) scale(0.45)"
+            ></path>
+            <path
+              d="M0,-6 Q1,-1 6,0 Q1,1 0,6 Q-1,1 -6,0 Q-1,-1 0,-6Z"
+              transform="translate(119.4 -8.3) scale(0.5)"
+            ></path>
+          </g>
+          <g
+            dominant-baseline="central"
+            fill="url(#gold)"
+            font-size="15"
+            style="
+              font-family:
+                'Apple Symbols', 'Segoe UI Symbol', 'Noto Sans Symbols 2', 'Noto Sans Symbols',
+                serif;
+            "
+            text-anchor="middle"
+          >
+            <text x="94.0" y="68.0">♈︎</text>
+            <text x="150.0" y="53.0">♉︎</text>
+            <text x="206.0" y="68.0">♊︎</text>
+            <text x="247.0" y="109.0">♋︎</text>
+            <text x="262.0" y="165.0">♌︎</text>
+            <text x="247.0" y="221.0">♍︎</text>
+            <text x="206.0" y="262.0">♎︎</text>
+            <text x="150.0" y="277.0">♏︎</text>
+            <text x="94.0" y="262.0">♐︎</text>
+            <text x="53.0" y="221.0">♑︎</text>
+            <text x="38.0" y="165.0">♒︎</text>
+            <text x="53.0" y="109.0">♓︎</text>
+          </g>
+          <text
+            fill="url(#gold)"
+            style="font-family: var(--serif); font-size: 15px; letter-spacing: 0.2em"
+            text-anchor="middle"
+            x="150"
+            y="352"
+          >
+            NIGHTSKY · LOOK UP
+          </text>
+        </svg>
+      </div>
+    </div>
+    <div aria-hidden="true" id="dim"></div>
+    <section aria-hidden="true" aria-label="Star pattern chapter" id="detail" role="dialog">
+      <div aria-hidden="true" id="dfix">
+        <canvas id="dstars"> </canvas>
+        <div id="dghost"></div>
+        <canvas id="dcon"> </canvas>
+        <div id="dcompat"></div>
+      </div>
+      <div id="dscroll" tabindex="-1">
+        <article id="dpage"></article>
+      </div>
+      <button aria-label="Close this star pattern" class="rings" id="dclose">
+        <svg
+          aria-hidden="true"
+          height="15"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-width="1.2"
+          viewbox="0 0 15 15"
+          width="15"
+        >
+          <path d="M1.6 1.6l11.8 11.8M13.4 1.6L1.6 13.4"></path>
+        </svg>
+      </button>
+    </section>
+    <div id="cur">
+      <span class="ring"> </span>
+      <span class="dot">
+        <svg aria-hidden="true" viewbox="-8 -8 16 16">
+          <path d="M0-7Q1.1-1.1 7 0Q1.1 1.1 0 7Q-1.1 1.1-7 0Q-1.1-1.1 0-7Z"></path>
+        </svg>
+      </span>
+      <span class="gl">
+        <svg
+          aria-hidden="true"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-width="1.2"
+          viewbox="0 0 15 15"
+        >
+          <path d="M1.6 1.6l11.8 11.8M13.4 1.6L1.6 13.4"></path>
+        </svg>
+      </span>
+    </div>
+    <div aria-live="polite" id="a11y"></div>
+    <div aria-hidden="true" hidden="" id="assetmap">
+      <img
+        alt=""
+        data-k="cards_aries_webp"
+        loading="lazy"
+        src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/4183cce6-26be-476e-ada9-4893da318411_original.avif"
+      />
+      <img
+        alt=""
+        data-k="cards_taurus_webp"
+        loading="lazy"
+        src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/8d02dca0-2f94-4a33-98c9-2b481829d385_original.avif"
+      />
+      <img
+        alt=""
+        data-k="cards_gemini_webp"
+        loading="lazy"
+        src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/ecc4a8ec-4440-4bea-8b96-661eb0318f49_original.avif"
+      />
+      <img
+        alt=""
+        data-k="cards_cancer_webp"
+        loading="lazy"
+        src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/04e24695-cbc3-488e-96d0-0ccc116ba096_original.avif"
+      />
+      <img
+        alt=""
+        data-k="cards_leo_webp"
+        loading="lazy"
+        src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/d3c4be83-a461-471e-a818-9fbb1246a693_original.avif"
+      />
+      <img
+        alt=""
+        data-k="cards_virgo_webp"
+        loading="lazy"
+        src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/ba4767cf-43de-4849-81b9-0fa39f8be6e0_original.avif"
+      />
+      <img
+        alt=""
+        data-k="cards_libra_webp"
+        loading="lazy"
+        src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/20489adb-bb2b-4672-adda-34b743897359_original.avif"
+      />
+      <img
+        alt=""
+        data-k="cards_scorpio_webp"
+        loading="lazy"
+        src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/7359134b-6222-4900-93c6-eb41e542ea33_original.avif"
+      />
+      <img
+        alt=""
+        data-k="cards_sagittarius_webp"
+        loading="lazy"
+        src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/cfc63423-acff-4038-934f-0e4cd598e6db_original.avif"
+      />
+      <img
+        alt=""
+        data-k="cards_capricorn_webp"
+        loading="lazy"
+        src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/90e8fedb-8f84-41cd-8356-eaf4d2627049_original.avif"
+      />
+      <img
+        alt=""
+        data-k="cards_aquarius_webp"
+        loading="lazy"
+        src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/25482ef0-78c1-44d3-9f53-c03deab57c95_original.avif"
+      />
+      <img
+        alt=""
+        data-k="cards_pisces_webp"
+        loading="lazy"
+        src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/2b4be16d-7d07-4346-9f24-69b33315a0f7_original.avif"
+      />
+      <img
+        alt=""
+        data-k="assets_celestial_zodiac_aries_png"
+        loading="lazy"
+        src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/30f8cae7-5aff-46c6-abfc-1176784c0c0c_original.png"
+      />
+      <img
+        alt=""
+        data-k="assets_celestial_zodiac_taurus_png"
+        loading="lazy"
+        src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/f2a7622c-b0f5-4dc0-9cfd-ca4200415045_original.png"
+      />
+      <img
+        alt=""
+        data-k="assets_celestial_zodiac_gemini_png"
+        loading="lazy"
+        src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/e525a4b3-36cf-463d-98ca-42e739dc0596_original.png"
+      />
+      <img
+        alt=""
+        data-k="assets_celestial_zodiac_cancer_png"
+        loading="lazy"
+        src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/05913515-420c-4ee8-a294-87f5b797d820_original.png"
+      />
+      <img
+        alt=""
+        data-k="assets_celestial_zodiac_leo_png"
+        loading="lazy"
+        src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/ea4d8466-dd00-4446-9f75-67a762191b5e_original.png"
+      />
+      <img
+        alt=""
+        data-k="assets_celestial_zodiac_virgo_png"
+        loading="lazy"
+        src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/75866a90-059a-4f5d-ab59-ead0129a47ed_original.png"
+      />
+      <img
+        alt=""
+        data-k="assets_celestial_zodiac_libra_png"
+        loading="lazy"
+        src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/9b17587b-a70c-45bc-afc3-5a9dc0e67f4f_original.png"
+      />
+      <img
+        alt=""
+        data-k="assets_celestial_zodiac_scorpio_png"
+        loading="lazy"
+        src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/c42eedab-a448-476a-b1e2-3c9d10bedf07_original.png"
+      />
+      <img
+        alt=""
+        data-k="assets_celestial_zodiac_sagittarius_png"
+        loading="lazy"
+        src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/8a1e1f69-f2e1-462a-b833-1df2f2b68e83_original.png"
+      />
+      <img
+        alt=""
+        data-k="assets_celestial_zodiac_capricorn_png"
+        loading="lazy"
+        src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/ea98c581-63c0-42e1-83ba-5d78d2fcad49_original.png"
+      />
+      <img
+        alt=""
+        data-k="assets_celestial_zodiac_aquarius_png"
+        loading="lazy"
+        src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/b882f0d7-86ea-493b-aa00-7d01e6677ef9_original.png"
+      />
+      <img
+        alt=""
+        data-k="assets_celestial_zodiac_pisces_png"
+        loading="lazy"
+        src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/81c48dbc-c118-48e9-a701-91549982572b_original.png"
+      />
+      <img
+        alt=""
+        data-k="assets_celestial_corner_png"
+        loading="lazy"
+        src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/9b7e639b-e3c8-4e7c-84ac-4053ffd62e0b_original.png"
+      />
+      <img
+        alt=""
+        data-k="assets_celestial_divider_png"
+        loading="lazy"
+        src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/eeec6e9c-0c13-434f-b1ef-af0f0deaff0f_original.png"
+      />
+    </div>
+    <script src="js/navigation.js"></script>
+    <script
+      defer=""
+      id="threejs"
+      src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js"
+      integrity="sha384-RRHfJ6w1mTlKUBMYT/hvnRiOzEB/vyRV3DrQOseb6oYfvaZSfdd0byS4bHps0k2R"
+      crossorigin="anonymous"
+    ></script>
+    <script defer="" src="js/core/math.js"></script>
+    <script defer src="js/data/field-content.js"></script>
+    <script defer="" src="js/data/constellations.js"></script>
+    <script defer="" src="js/audio/sound-engine.js"></script>
+    <script defer="" src="js/render/sky-renderer.js"></script>
+    <script defer="" src="js/render/reading-view.js"></script>
+    <script defer src="js/core/pattern-hit.js"></script>
+    <script defer="" src="js/app.js"></script>
+
+    <section
+      id="skyGuide"
+      class="field-guide"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Sky guide"
+      tabindex="-1"
+      hidden
+    >
+      <canvas id="guideStars" aria-hidden="true"></canvas>
+      <div class="guide-shell">
+        <header class="guide-topbar">
+          <a class="guide-brand" href="#" id="guideHome"
+            ><span aria-hidden="true">✧</span> NightSky
+          </a>
+          <div class="guide-top-actions">
+            <button
+              id="nightMode"
+              aria-label="Toggle red night light"
+              class="text-button"
+              aria-pressed="false"
+            >
+              ◐</button
+            ><button class="rings" id="guideClose" aria-label="Close the sky guide">×</button>
+          </div>
+        </header>
+        <nav class="guide-tabs" aria-label="Field guide sections">
+          <span class="guide-nav-label">SKY GUIDE</span
+          ><button data-tab="sky" aria-current="page">
+            <i aria-hidden="true">✧</i> Sky compass</button
+          ><button data-tab="plan"><i aria-hidden="true">◷</i> Observing plan</button
+          ><button data-tab="journal">
+            <i aria-hidden="true">＋</i> My observations <span id="journalCount">0</span></button
+          ><button data-tab="atlas"><i aria-hidden="true">✦</i> Constellations</button
+          ><button data-tab="nearby"><i aria-hidden="true">⌖</i> Places &amp; events</button
+          ><button data-tab="settings"><i aria-hidden="true">⚙</i> Settings</button>
+        </nav>
+        <div class="observer-bar">
+          <button
+            id="locationToggle"
+            class="observer-place"
+            aria-expanded="false"
+            aria-controls="locationPanel"
+          >
+            <span class="field-eyebrow">OBSERVING FROM</span
+            ><span id="locationLabel">Choose your location <span aria-hidden="true">↗</span></span>
+          </button>
+          <div class="observer-time">
+            <label class="field-eyebrow" for="observeTime">WHEN · DEVICE TIME</label>
+            <div>
+              <input
+                type="datetime-local"
+                id="observeTime"
+                min="2000-01-01T00:00"
+                max="2100-12-31T23:59"
+              /><button id="timeNow" class="text-button">Now</button
+              ><button id="timeTonight" class="text-button">Tonight</button>
+            </div>
+          </div>
+        </div>
+        <section id="aiSettings" class="settings-panel" aria-label="Model settings" hidden>
+          <div>
+            <h3>Settings</h3>
+            <label
+              >Use<select id="aiProvider">
+                <option value="google">App’s Gemma</option>
+                <option value="ollama">My Ollama model</option>
+              </select></label
+            >
+            <p id="providerHint" class="fine-print"></p>
+          </div>
+          <div id="ollamaSettings" hidden>
+            <label
+              >Ollama URL<input
+                id="ollamaUrl"
+                type="url"
+                maxlength="2048"
+                placeholder="http://localhost:11434"
+                value="http://localhost:11434" /></label
+            ><label
+              >Model<input
+                id="ollamaModel"
+                maxlength="200"
+                placeholder="Installed model tag"
+                value="gemma4"
+                list="installedModels" /></label
+            ><button id="testOllama" class="text-button" type="button">
+              Check connection &amp; models ↗
+            </button>
+            <p id="ollamaMessage" class="field-status" role="status"></p>
+            <details>
+              <summary>Connection help</summary>
+              <p class="fine-print">
+                Install your model first. Allow this page’s origin in OLLAMA_ORIGINS and restart
+                Ollama. An HTTPS page needs a securely reachable endpoint. URL and model choices are
+                saved on this device.
+              </p>
+            </details>
+          </div>
+          <datalist id="installedModels"></datalist>
+        </section>
+        <div id="locationPanel" class="location-panel" hidden>
+          <div>
+            <h3>Set your location</h3>
+            <button id="useLocation" class="field-button">
+              Use my location <span aria-hidden="true">⌖</span>
+            </button>
+          </div>
+          <div>
+            <form id="cityForm">
+              <label for="citySearch">Search a city</label>
+              <div class="input-row">
+                <input
+                  id="citySearch"
+                  placeholder="City or town"
+                  autocomplete="off"
+                  minlength="2"
+                  maxlength="100"
+                  required
+                /><button class="field-button" type="submit">Find</button>
+              </div>
+            </form>
+            <div id="cityResults" class="city-results" aria-live="polite"></div>
+            <details class="coordinate-details">
+              <summary>Enter coordinates instead</summary>
+              <form id="coordinateForm">
+                <div class="input-row">
+                  <label
+                    >Latitude<input
+                      id="latitude"
+                      type="number"
+                      step="any"
+                      min="-90"
+                      max="90"
+                      placeholder="−90 to 90"
+                      required /></label
+                  ><label
+                    >Longitude<input
+                      id="longitude"
+                      type="number"
+                      step="any"
+                      min="-180"
+                      max="180"
+                      placeholder="−180 to 180"
+                      required /></label
+                  ><button class="field-button" type="submit">Set</button>
+                </div>
+              </form>
+            </details>
+          </div>
+          <p id="locationMessage" class="field-status" role="status"></p>
+        </div>
+        <p id="guideMessage" class="field-status" role="status"></p>
+        <div id="skySection" data-section="sky">
+          <div id="locationEmpty" class="guide-empty">
+            <div class="empty-orbit" aria-hidden="true"><span>✦</span><i></i><b>✧</b></div>
+            <h3>Set your location</h3>
+            <button class="field-button" id="chooseLocation">Set location ↗</button
+            ><button class="text-button" data-tab="atlas">Browse constellations</button>
+          </div>
+          <div id="localSkyContent" hidden>
+            <div class="sky-bento">
+              <article class="bento-tile sky-map-tile">
+                <div class="tile-heading"></div>
+                <div id="localSkyChart" aria-label="Local sky compass chart"></div>
+                <p class="chart-caption">Centre = overhead · rim = horizon</p>
+                <details class="chart-help">
+                  <summary>How to read this</summary>
+                  <p>
+                    Face the direction marked on the rim. East is on the left, as on a chart held up
+                    to the sky. Positions use the selected place and time.
+                  </p>
+                </details>
+              </article>
+            </div>
+          </div>
+        </div>
+        <div id="catalogSection" data-section="catalog">
+          <div class="catalog-toolbar">
+            <label class="search-field"
+              ><span aria-hidden="true">⌕</span
+              ><input
+                id="constellationSearch"
+                type="search"
+                placeholder="Search constellations"
+                aria-label="Find a constellation"
+            /></label>
+          </div>
+          <div id="constellationCards" class="constellation-grid"></div>
+        </div>
+        <div id="planSection" data-section="plan" hidden>
+          <div class="section-intro">
+            <p class="field-eyebrow">OBSERVING</p>
+            <h3>Observing plan</h3>
+          </div>
+          <div id="planTarget" class="plan-ai-row" hidden>
+            <span id="planTargetName" class="fine-print"></span
+            ><button id="clearPlanTarget" class="text-button" type="button">
+              Use any constellation ↗
+            </button>
+          </div>
+          <div class="plan-controls">
+            <label
+              >Time outside<select id="planDuration">
+                <option value="10">10 minutes</option>
+                <option value="15" selected>15 minutes</option>
+                <option value="20">20 minutes</option>
+              </select></label
+            ><label
+              >Equipment<select id="planEquipment">
+                <option value="eyes">Just my eyes</option>
+                <option value="binoculars">Binoculars</option>
+                <option value="telescope">A telescope</option>
+              </select></label
+            ><label
+              >Viewing direction<select id="planDirection">
+                <option value="">Any direction</option>
+                <option value="N">North</option>
+                <option value="E">East</option>
+                <option value="S">South</option>
+                <option value="W">West</option>
+              </select></label
+            ><button id="buildPlan" class="field-button primary">Create plan ↗</button>
+          </div>
+          <div class="plan-ai-row">
+            <button id="personalisePlan" class="text-button">Personalise with Gemma ✧</button
+            ><span id="gemmaStatus" class="fine-print">Checking AI connection…</span
+            ><button id="planModelSettings" class="text-button" type="button">
+              Model settings ↗
+            </button>
+          </div>
+          <p id="planMessage" class="field-status" role="status"></p>
+          <div id="planOutput" class="plan-output">
+            <div class="quiet-empty">
+              <h3>No plan yet</h3>
+              <p>Choose your location and a time after dusk, then create a plan.</p>
+            </div>
+          </div>
+          <div id="planActions" class="plan-actions" hidden>
+            <button id="savePlan" class="field-button">Save on this device</button
+            ><button id="downloadPlan" class="field-button">Download plan ↓</button
+            ><button id="listenPlan" class="text-button">Listen to the plan ▷</button>
+          </div>
+        </div>
+        <div id="nearbySection" data-section="nearby" hidden>
+          <div class="section-intro"><h3>Places &amp; events</h3></div>
+          <div class="nearby-controls" aria-label="Nearby search">
+            <button id="findPlaces" class="field-button primary">Places</button
+            ><button id="findEvents" class="field-button">Events</button>
+          </div>
+          <p id="nearbyMessage" class="field-status" role="status"></p>
+          <div id="nearbyResults" class="nearby-grid"></div>
+          <details class="nearby-help">
+            <summary>About these results</summary>
+            <p>
+              Search powered by SerpApi. Check opening hours and event dates before travelling. A
+              listed place may not allow access after dark.
+            </p>
+          </details>
+        </div>
+        <div id="journalSection" data-section="journal" hidden>
+          <div class="journal-heading">
+            <div><h3>My observations</h3></div>
+            <button id="newNote" class="field-button">+ Log a sighting</button>
+          </div>
+          <form id="noteEditor" class="note-editor" hidden>
+            <input type="hidden" id="noteId" />
+            <div class="note-fields">
+              <label>Constellation<select id="noteConstellation" required></select></label
+              ><label>Observed at<input id="noteDate" type="datetime-local" required /></label
+              ><label
+                >How did it go?<select id="noteStatus">
+                  <option value="found">Found it</option>
+                  <option value="partial">Partly found</option>
+                  <option value="retry">Try another night</option>
+                </select></label
+              >
+            </div>
+            <label
+              >Observation notes<textarea
+                id="noteText"
+                maxlength="500"
+                placeholder="What did you see?"
+              ></textarea>
+            </label>
+            <div class="plan-actions">
+              <button class="field-button primary" type="submit">Save observation</button
+              ><button id="cancelNote" class="text-button" type="button">Cancel</button>
+            </div>
+          </form>
+          <p id="noteMessage" class="field-status" role="status"></p>
+          <div id="journalEntries" class="journal-grid"></div>
+        </div>
+        <footer class="guide-footer">
+          <span>✧ NightSky <em>— a reason to look up.</em></span>
+          <p>
+            Sky calculations:
+            <a href="https://github.com/cosinekitty/astronomy" target="_blank" rel="noopener"
+              >Astronomy Engine</a
+            >
+            · Patterns:
+            <a href="https://github.com/ofrohn/d3-celestial" target="_blank" rel="noopener"
+              >D3 Celestial</a
+            >
+            · City lookup:
+            <a href="https://open-meteo.com/" target="_blank" rel="noopener"
+              >Open-Meteo / GeoNames</a
+            >
+          </p>
+        </footer>
+      </div>
+    </section>
+    <script defer src="js/vendor/astronomy.browser.min.js"></script>
+    <script defer src="js/data/observing-catalog.js"></script>
+    <script defer src="js/core/observing.js"></script>
+    <script defer src="js/core/ai-guide.js"></script>
+    <script defer src="js/core/model-client.js"></script>
+    <script defer src="js/render/guide-stars.js"></script>
+    <script defer src="js/guide.js"></script>
+  </body>
+</html>
