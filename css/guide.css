@@ -1,0 +1,2227 @@
+#guideStars {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.65;
+}
+.guide-shell {
+  position: relative;
+  z-index: 1;
+}
+.settings-panel,
+.note-editor {
+  padding: 26px;
+  margin: 24px 0;
+  background: #0b1521dd;
+  border: 1px solid #294052;
+  border-radius: 12px;
+}
+.settings-panel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  scroll-margin-top: 20px;
+}
+.settings-panel > div {
+  min-width: 0;
+}
+.settings-panel .field-status {
+  overflow-wrap: anywhere;
+}
+.plan-ai-row {
+  flex-wrap: wrap;
+}
+.settings-panel h3,
+.journal-heading h3 {
+  font: 38px var(--serif);
+  margin: 0 0 24px;
+}
+.settings-panel label {
+  margin: 12px 0;
+}
+.settings-panel input,
+.settings-panel select {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+}
+.journal-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 48px 0 24px;
+  gap: 20px;
+}
+.journal-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+.journal-entry {
+  background: #0b1521aa;
+  border: 1px solid #294052;
+  border-radius: 12px;
+  padding: 28px;
+}
+.journal-entry h4 {
+  font: 32px var(--serif);
+  margin: 16px 0;
+}
+.journal-entry p {
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+.note-fields {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+.note-fields input,
+.note-fields select {
+  display: block;
+  width: 100%;
+  margin: 8px 0 18px;
+}
+.note-editor textarea {
+  width: 100%;
+  background: #050c14;
+  color: var(--ink);
+  border: 1px solid #294052;
+  border-radius: 6px;
+  min-height: 100px;
+  padding: 14px;
+  resize: vertical;
+  font: 13px var(--sans);
+}
+.card-actions {
+  display: flex;
+  gap: 24px;
+  margin-top: 24px;
+}
+.constellation-card {
+  background: #08121bdd;
+  transition:
+    border-color 0.25s,
+    transform 0.25s;
+}
+.constellation-card:hover {
+  transform: translateY(-3px);
+  border-color: #6f96b5;
+}
+.constellation-card[open] .card-detail {
+  animation: guide-reveal 0.3s ease both;
+}
+.field-status:empty {
+  display: none;
+}
+@keyframes guide-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (max-width: 700px) {
+  .settings-panel {
+    scroll-margin-top: 90px;
+  }
+  .settings-panel,
+  .journal-grid,
+  .note-fields {
+    grid-template-columns: 1fr;
+  }
+  .guide-top-actions {
+    gap: 14px;
+  }
+  .guide-tabs {
+    gap: 22px;
+  }
+  .journal-heading h3 {
+    font-size: 32px;
+  }
+  .observer-bar {
+    gap: 12px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .constellation-card,
+  .card-detail {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+[hidden] {
+  display: none !important;
+}
+.guide-trigger {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 51px;
+  padding: 0 22px;
+  border: 1px solid var(--gold-dim);
+  border-radius: 40px;
+  background: transparent;
+  color: var(--ink);
+  font: 11px var(--sans);
+  letter-spacing: 0.13em;
+  cursor: pointer;
+}
+.hero-guide {
+  position: absolute;
+  left: 50%;
+  top: 82%;
+  transform: translateX(-50%);
+  display: block;
+  padding: 12px;
+  background: none;
+  border: 0;
+  color: var(--gold);
+  font: 12px var(--sans);
+  cursor: pointer;
+  pointer-events: auto;
+  white-space: nowrap;
+}
+.field-guide {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  overflow: auto;
+  overscroll-behavior: contain;
+  background: #05090e;
+  color: var(--ink);
+  scrollbar-width: thin;
+  scrollbar-color: #4c6074 transparent;
+  background-image: radial-gradient(ellipse at 85% 10%, #12263870, transparent 45%);
+  cursor: auto;
+}
+.guide-shell {
+  max-width: 1320px;
+  margin: auto;
+  padding: 0 64px;
+}
+.guide-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--gold-faint);
+}
+.guide-brand {
+  text-decoration: none;
+  color: var(--ink);
+  font: 24px var(--serif);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.guide-brand > span:first-child {
+  color: var(--gold);
+  font-size: 32px;
+}
+
+.guide-top-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.field-guide .rings {
+  font: 28px var(--serif);
+}
+.field-guide button,
+.field-guide input,
+.field-guide select {
+  font-family: var(--sans);
+}
+.field-guide button {
+  cursor: pointer;
+}
+.field-guide button:disabled {
+  cursor: wait;
+  opacity: 0.45;
+}
+.field-guide :focus-visible,
+.guide-trigger:focus-visible,
+.hero-guide:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 5px;
+}
+
+.field-eyebrow {
+  color: var(--gold);
+  font: 10px/1.7 var(--sans);
+  letter-spacing: 0.17em;
+}
+
+.guide-tabs {
+  display: flex;
+  gap: 36px;
+  border-bottom: 1px solid var(--gold-faint);
+}
+.guide-tabs button {
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  padding: 17px 0;
+  color: #8b9dad;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.guide-tabs button span {
+  font-size: 9px;
+  margin-right: 9px;
+  color: var(--dim-2);
+}
+.guide-tabs button[aria-current='page'] {
+  color: var(--ink);
+  border-color: var(--gold);
+}
+.observer-bar {
+  display: grid;
+  grid-template-columns: 1.2fr 1.3fr 0.65fr;
+  align-items: center;
+  border-bottom: 1px solid var(--gold-faint);
+  padding: 24px 0;
+  gap: 30px;
+}
+.observer-place {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  text-align: left;
+  background: none;
+  border: 0;
+  color: var(--ink);
+  min-width: 0;
+}
+#locationLabel {
+  font: 22px/1.25 var(--serif);
+  overflow-wrap: anywhere;
+}
+.observer-time > div {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.field-guide input,
+.field-guide select {
+  color-scheme: dark;
+  background: #0b131c;
+  color: var(--ink);
+  border: 1px solid #283949;
+  border-radius: 5px;
+  min-height: 44px;
+  padding: 10px 12px;
+  font-size: 12px;
+  min-width: 0;
+  max-width: 100%;
+}
+.field-guide input::placeholder {
+  color: #8496a8;
+}
+.field-guide label {
+  display: block;
+  color: #aebdcb;
+  font: 11px/1.6 var(--sans);
+}
+.field-guide label input,
+.field-guide label select {
+  display: block;
+  margin-top: 6px;
+  width: 100%;
+}
+#observeTime {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  min-height: 30px;
+  width: 205px;
+}
+.location-panel {
+  padding: 28px;
+  margin-top: 20px;
+  border: 1px solid var(--gold-faint);
+  background: #0a121b;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 24px 48px;
+}
+.location-panel h3,
+.guide-empty h3,
+.quiet-empty h3 {
+  font: 30px/1.2 var(--serif);
+  font-weight: 400;
+}
+.location-panel p,
+.guide-empty p,
+.quiet-empty p {
+  color: #a3b2c3;
+  font-size: 13px;
+  line-height: 1.8;
+  margin: 12px 0 20px;
+}
+.input-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+}
+.input-row > input {
+  flex: 1;
+}
+.input-row label {
+  flex: 1;
+  min-width: 0;
+}
+.coordinate-details {
+  margin-top: 18px;
+  font-size: 11px;
+  color: var(--gold);
+}
+.coordinate-details summary {
+  cursor: pointer;
+  padding: 10px 0;
+}
+.city-results button {
+  display: block;
+  text-align: left;
+  width: 100%;
+  padding: 12px;
+  color: var(--ink);
+  background: #101f2c;
+  border: 0;
+  border-bottom: 1px solid #304151;
+  font-size: 12px;
+}
+.city-results button:hover {
+  background: #1b3145;
+}
+.field-button {
+  background: transparent;
+  color: var(--gold);
+  border: 1px solid #526d85;
+  border-radius: 40px;
+  padding: 14px 22px;
+  min-height: 46px;
+  font: 11px/1.5 var(--sans);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  text-decoration: none;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+}
+.field-button:hover {
+  background: #14283a;
+  border-color: var(--gold);
+}
+.field-button.primary {
+  background: #b3cde1;
+  color: #08121b;
+  border-color: #b3cde1;
+}
+.field-button.primary:hover {
+  background: #d1e3f0;
+}
+.text-button {
+  background: none;
+  border: 0;
+  padding: 10px 0;
+  color: var(--gold);
+  font: 11px/1.5 var(--sans);
+  text-decoration: none;
+}
+.text-button:hover {
+  color: #e7f3ff;
+}
+.field-status {
+  color: #c2d5e5;
+  font: 12px/1.7 var(--sans);
+}
+.field-status:not(:empty) {
+  padding: 14px 0;
+}
+.location-panel > .field-status {
+  grid-column: 1/-1;
+}
+.guide-empty {
+  text-align: center;
+  padding: 64px 24px;
+  max-width: 640px;
+  margin: auto;
+}
+.guide-empty > span {
+  display: block;
+  font-size: 56px;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+.guide-empty .text-button {
+  display: block;
+  margin: 12px auto 0;
+}
+
+.sky-chart-wrap {
+  max-width: 440px;
+  width: 100%;
+  margin: auto;
+}
+.sky-chart-wrap svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+.sky-chart-wrap > p {
+  text-align: center;
+  font: 10px/1.8 var(--sans);
+  color: #8094a8;
+}
+
+.sky-brief > p:not(.field-eyebrow) {
+  color: #a4b3c3;
+  font: 13px/1.8 var(--sans);
+}
+
+.field-guide .fine-print {
+  color: #899dad;
+  font: 10px/1.8 var(--sans);
+}
+
+.catalog-heading h3,
+.section-intro h3 {
+  font: 42px/1.1 var(--serif);
+  font-weight: 400;
+  margin-top: 10px;
+}
+.catalog-toolbar {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.search-field {
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+.search-field > span {
+  font-size: 26px;
+}
+.search-field input {
+  margin: 0 !important;
+  width: 200px !important;
+}
+
+.constellation-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 32px;
+}
+.constellation-card {
+  border-top: 1px solid #304658;
+  padding: 25px 0;
+  align-self: start;
+  min-width: 0;
+}
+.constellation-card summary {
+  list-style: none;
+  cursor: pointer;
+}
+.constellation-card summary::-webkit-details-marker {
+  display: none;
+}
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  min-height: 108px;
+}
+.card-number {
+  font: 9px var(--sans);
+  letter-spacing: 0.14em;
+  color: #7e98ac;
+}
+.card-top h4 {
+  font: 32px/1.15 var(--serif);
+  color: #e9f0f6;
+  font-weight: 400;
+  margin: 10px 0 4px;
+  overflow-wrap: anywhere;
+}
+
+.mini-pattern {
+  width: 100px;
+  height: 86px;
+  flex-shrink: 0;
+}
+.card-status {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px dotted #273b4d;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font: 10px/1.5 var(--sans);
+  color: #9dafbf;
+}
+.card-status .above {
+  color: #aecdc3;
+}
+.card-status .partial {
+  color: #d0c19b;
+}
+.card-status b {
+  font-weight: 400;
+  color: var(--gold);
+}
+.card-detail {
+  padding-top: 20px;
+  font: 12px/1.8 var(--sans);
+  color: #aabccb;
+}
+.card-detail h5 {
+  font: 9px/1.5 var(--sans);
+  letter-spacing: 0.14em;
+  color: var(--gold);
+  margin: 20px 0 7px;
+}
+.card-detail p {
+  margin-bottom: 12px;
+}
+.card-detail a {
+  color: var(--gold);
+}
+.card-detail .field-button {
+  margin-top: 12px;
+  width: 100%;
+}
+.observation-select {
+  width: 100%;
+}
+.card-detail textarea {
+  width: 100%;
+  min-height: 72px;
+  border: 1px solid #283949;
+  background: #0b131c;
+  padding: 10px;
+  color: var(--ink);
+  resize: vertical;
+  font: 12px/1.6 var(--sans);
+  margin-top: 8px;
+}
+.quiet-empty {
+  border-top: 1px solid var(--gold-faint);
+  padding: 32px 0;
+  grid-column: 1/-1;
+}
+.section-intro {
+  max-width: 650px;
+  padding: 44px 0 30px;
+}
+.section-intro > p:last-child {
+  margin-top: 18px;
+  color: #a3b3c2;
+  font: 13px/1.9 var(--sans);
+}
+.plan-controls {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) auto;
+  gap: 20px;
+  align-items: end;
+}
+.plan-controls select {
+  width: 100%;
+}
+.plan-ai-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin: 20px 0;
+}
+.plan-output {
+  margin-top: 24px;
+}
+.plan-cover {
+  border-top: 1px solid var(--gold-faint);
+  padding: 28px 0;
+}
+.plan-cover h4 {
+  font: 32px var(--serif);
+  margin: 12px 0;
+}
+.plan-cover p {
+  color: #a7b7c7;
+  font: 13px/1.9 var(--sans);
+  max-width: 760px;
+}
+.plan-step {
+  display: grid;
+  grid-template-columns: 70px 1fr 130px;
+  gap: 25px;
+  padding: 28px 0;
+  border-top: 1px solid #263a4b;
+}
+.plan-step > span {
+  font: 42px var(--serif);
+  color: #65839d;
+}
+.plan-step h4 {
+  font: 30px var(--serif);
+  margin-bottom: 10px;
+}
+.plan-step p {
+  font: 13px/1.8 var(--sans);
+  color: #abbccb;
+  max-width: 700px;
+}
+.plan-step .plan-task {
+  color: #d1dfe9;
+  margin-top: 12px;
+  font-style: italic;
+}
+.plan-bearing {
+  text-align: right;
+  font: 24px var(--serif);
+  color: var(--gold);
+}
+.plan-bearing small {
+  display: block;
+  font: 10px/1.8 var(--sans);
+}
+.plan-actions,
+.nearby-controls {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+.nearby-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+  margin-top: 30px;
+}
+.place-card {
+  border-top: 1px solid #304658;
+  padding: 25px 0;
+}
+.place-card h4 {
+  font: 30px var(--serif);
+}
+.place-card p {
+  color: #a5b5c5;
+  font: 12px/1.9 var(--sans);
+  margin: 14px 0;
+}
+.place-card a {
+  margin-right: 22px;
+}
+.guide-footer {
+  margin-top: 60px;
+  padding: 32px 0;
+  border-top: 1px solid var(--gold-faint);
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  align-items: center;
+}
+.guide-footer > span {
+  font: 20px var(--serif);
+  color: var(--gold);
+}
+.guide-footer em {
+  font-size: 16px;
+  color: #8299ad;
+}
+.guide-footer p {
+  max-width: 360px;
+  font: 9px/1.9 var(--sans);
+  color: #8197aa;
+}
+.guide-footer a {
+  color: #a4b9ca;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.field-guide.night-light {
+  filter: sepia(1) saturate(2) hue-rotate(310deg);
+  background-color: #080100;
+}
+body.guide-open #cur {
+  display: none;
+}
+.atlas-filter-badge {
+  position: fixed;
+  left: 50%;
+  top: 24px;
+  transform: translateX(-50%);
+  z-index: 46;
+  padding: 10px 18px;
+  border: 1px solid var(--gold-faint);
+  background: #08121ddd;
+  border-radius: 30px;
+  font: 11px var(--sans);
+  color: var(--gold);
+  cursor: pointer;
+}
+@media (max-width: 1000px) {
+  .guide-shell {
+    padding: 0 32px;
+  }
+  .constellation-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .plan-controls {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .plan-controls > .field-button {
+    grid-column: 1/-1;
+    justify-self: start;
+  }
+  .observer-bar {
+    grid-template-columns: 1fr 1fr;
+  }
+  .guide-footer {
+    align-items: flex-start;
+  }
+}
+@media (max-width: 600px) {
+  .guide-shell {
+    padding: 0 22px;
+  }
+  .guide-topbar {
+    padding: 18px 0;
+  }
+  .guide-brand {
+    font-size: 22px;
+  }
+  .guide-top-actions {
+    gap: 16px;
+  }
+  .guide-top-actions .rings {
+    width: 40px;
+    height: 40px;
+  }
+  .field-eyebrow {
+    font-size: 8px;
+  }
+  .guide-tabs {
+    gap: 0;
+    justify-content: space-between;
+  }
+  .guide-tabs button {
+    font-size: 11px;
+  }
+  .guide-tabs button span {
+    display: none;
+  }
+  .observer-bar {
+    grid-template-columns: 1fr;
+    padding: 20px 0;
+    gap: 18px;
+  }
+  .observer-time > div {
+    justify-content: space-between;
+  }
+  .location-panel {
+    grid-template-columns: 1fr;
+    padding: 20px;
+    gap: 24px;
+  }
+  .input-row {
+    flex-wrap: wrap;
+  }
+  .coordinate-details .input-row label {
+    flex-basis: 40%;
+  }
+  .sky-chart-wrap {
+    max-width: 340px;
+  }
+  .catalog-heading h3,
+  .section-intro h3 {
+    font-size: 36px;
+  }
+  .catalog-toolbar {
+    gap: 12px;
+  }
+  .search-field {
+    margin-left: 0;
+    flex: 1;
+  }
+  .search-field input {
+    width: 100% !important;
+  }
+  .catalog-toolbar > select {
+    width: 132px;
+  }
+  .constellation-grid {
+    grid-template-columns: 1fr;
+  }
+  .card-top h4 {
+    font-size: 34px;
+  }
+  .mini-pattern {
+    width: 120px;
+  }
+  .plan-controls {
+    grid-template-columns: 1fr;
+  }
+  .plan-controls > .field-button {
+    justify-self: stretch;
+  }
+  .plan-ai-row {
+    display: block;
+  }
+  .plan-ai-row > span {
+    display: block;
+  }
+  .plan-step {
+    grid-template-columns: 34px 1fr;
+    gap: 14px;
+  }
+  .plan-step > span {
+    font-size: 30px;
+  }
+  .plan-bearing {
+    grid-column: 2;
+    text-align: left;
+    font-size: 20px;
+  }
+  .plan-bearing small {
+    display: inline;
+    margin-left: 10px;
+  }
+  .nearby-grid {
+    grid-template-columns: 1fr;
+  }
+  .guide-footer {
+    display: block;
+  }
+  .guide-footer p {
+    margin-top: 18px;
+  }
+  .guide-footer em {
+    display: block;
+    margin-top: 8px;
+  }
+  .guide-label {
+    display: none;
+  }
+  .guide-trigger {
+    width: 51px;
+    padding: 0;
+    justify-content: center;
+  }
+  .atlas-filter-badge {
+    top: 90px;
+    max-width: 85%;
+    white-space: nowrap;
+  }
+  .guide-empty {
+    padding: 44px 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .field-guide * {
+    scroll-behavior: auto !important;
+    transition: none !important;
+  }
+}
+
+.guide-shell {
+  max-width: 1120px;
+  padding: 0 36px 24px;
+}
+#guideStars {
+  opacity: 0.42;
+}
+.guide-topbar {
+  padding: 16px 0;
+  border: 0;
+}
+.guide-brand {
+  font-size: 23px;
+}
+.guide-top-actions {
+  gap: 20px;
+}
+
+.guide-tabs {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+  padding: 6px;
+  background: #0c1520f5;
+  border: 1px solid #233240;
+  border-radius: 14px;
+  backdrop-filter: blur(18px);
+}
+.guide-tabs button {
+  border: 0;
+  border-radius: 9px;
+  padding: 13px 10px;
+  font-size: 12px;
+  transition: background 0.2s;
+  color: #98a9b9;
+}
+.guide-tabs button[aria-current='page'] {
+  background: #233547;
+  color: #f0f5fa;
+  box-shadow: 0 2px 8px #0003;
+}
+.guide-tabs button:hover {
+  background: #192a39;
+}
+.guide-tabs button span {
+  margin: 0 0 0 5px;
+}
+.observer-bar {
+  grid-template-columns: 1fr 1.2fr auto;
+  gap: 20px;
+  padding: 20px 4px;
+  border: 0;
+}
+.observer-place {
+  gap: 3px;
+}
+#locationLabel {
+  font: 13px/1.6 var(--sans);
+}
+.observer-bar .field-eyebrow {
+  font-size: 8px;
+  letter-spacing: 0.1em;
+}
+.observer-time > div {
+  margin-top: 1px;
+  gap: 12px;
+}
+#observeTime {
+  font-size: 12px;
+  width: 185px;
+}
+.sky-bento {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 14px;
+  margin: 6px 0 24px;
+}
+.bento-tile {
+  position: relative;
+  min-width: 0;
+  border: 1px solid #283847;
+  border-radius: 18px;
+  background: linear-gradient(145deg, #13202ed9, #0b141fe8);
+  padding: 23px;
+  overflow: hidden;
+}
+.tile-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.bento-tile .field-eyebrow {
+  font-size: 9px;
+  letter-spacing: 0.1em;
+}
+.sky-map-tile {
+  grid-row: span 2;
+}
+.sky-map-tile #localSkyChart {
+  max-width: 300px;
+  margin: 16px auto 6px;
+}
+.sky-map-tile svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.chart-caption {
+  text-align: center;
+  color: #879eb3;
+  font: 10px var(--sans);
+}
+.chart-help {
+  color: #99aec2;
+  font: 10px/1.7 var(--sans);
+  text-align: center;
+  margin-top: 12px;
+}
+.chart-help summary {
+  cursor: pointer;
+}
+.chart-help p {
+  margin: 12px 0 0;
+}
+.sky-status-tile > p:not(.field-eyebrow) {
+  font: 12px/1.7 var(--sans);
+  color: #a3b5c5;
+}
+
+.catalog-heading h3,
+.section-intro h3 {
+  font-size: 30px;
+  margin: 0;
+}
+.catalog-toolbar {
+  gap: 10px;
+}
+.search-field input {
+  background: #111c28;
+  border-radius: 10px;
+}
+.search-field > span {
+  display: none;
+}
+.catalog-toolbar > select {
+  border-radius: 10px;
+}
+.constellation-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+.constellation-card {
+  padding: 20px;
+  border: 1px solid #263747;
+  border-radius: 16px;
+  background: #0e1925df;
+}
+.card-top {
+  min-height: 76px;
+  gap: 8px;
+}
+.card-top h4 {
+  font-size: 26px;
+  margin: 6px 0;
+}
+.card-number {
+  font-size: 8px;
+}
+.mini-pattern {
+  width: 74px;
+  height: 70px;
+}
+.card-status {
+  font-size: 9px;
+  padding-top: 12px;
+  margin-top: 12px;
+  border-top: 1px solid #263747;
+}
+.card-detail {
+  font-size: 11px;
+}
+.card-detail h5 {
+  font-size: 8px;
+}
+.card-actions {
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.card-actions .text-button {
+  font-size: 10px;
+}
+#showMorePatterns {
+  grid-column: 1/-1;
+  justify-self: center;
+  margin-top: 4px;
+  min-height: 40px;
+  padding: 10px 22px;
+}
+.guide-empty {
+  max-width: none;
+  margin: 6px 0 24px;
+  border: 1px solid #283847;
+  border-radius: 18px;
+  background: radial-gradient(ellipse at 50% 0, #243e5855, transparent 70%), #0c1723b5;
+  padding: 42px 24px;
+}
+.guide-empty > span {
+  font-size: 36px;
+  margin-bottom: 16px;
+}
+.guide-empty h3 {
+  font-size: 32px;
+}
+.guide-empty p {
+  font-size: 12px;
+}
+.field-button {
+  border-radius: 10px;
+  padding: 12px 18px;
+  font-size: 11px;
+}
+.section-intro {
+  padding: 30px 0 24px;
+}
+.section-intro .field-eyebrow {
+  display: none;
+}
+.section-intro > p:last-child {
+  margin-top: 10px;
+  font-size: 12px;
+}
+.plan-controls {
+  background: #101c28d9;
+  border: 1px solid #283847;
+  border-radius: 16px;
+  padding: 20px;
+  gap: 14px;
+}
+.plan-controls select {
+  border-radius: 9px;
+}
+.plan-step {
+  border: 1px solid #283847;
+  border-radius: 16px;
+  background: #101c28bb;
+  padding: 22px;
+  margin: 14px 0;
+  grid-template-columns: 35px 1fr 100px;
+  gap: 20px;
+}
+.plan-step > span {
+  font-size: 27px;
+}
+.plan-step h4 {
+  font-size: 26px;
+}
+.plan-step p {
+  font-size: 12px;
+}
+.plan-bearing {
+  font-size: 20px;
+}
+.plan-cover {
+  border: 0;
+  padding: 14px 0;
+}
+.plan-cover p {
+  font-size: 12px;
+}
+.plan-cover h4 {
+  font-size: 26px;
+}
+.plan-ai-row {
+  margin: 16px 0;
+}
+.journal-heading {
+  margin: 30px 0 20px;
+}
+.journal-heading .field-eyebrow {
+  display: none;
+}
+.journal-heading h3 {
+  font-size: 30px;
+  margin: 0;
+}
+.journal-entry,
+.place-card {
+  border: 1px solid #283847;
+  background: #101c28bb;
+  border-radius: 16px;
+  padding: 22px;
+}
+.journal-entry h4,
+.place-card h4 {
+  font-size: 28px;
+}
+.journal-entry p {
+  font-size: 12px;
+}
+.quiet-empty {
+  border: 1px dashed #2c4154;
+  border-radius: 16px;
+  padding: 30px 24px;
+  text-align: center;
+}
+.quiet-empty p {
+  margin-bottom: 0;
+  font-size: 12px;
+}
+.guide-footer {
+  margin-top: 32px;
+  padding: 22px 0;
+}
+.guide-footer > span {
+  font-size: 18px;
+}
+.guide-footer em {
+  display: none;
+}
+.guide-footer p {
+  max-width: 480px;
+  font-size: 8px;
+}
+.field-guide[data-view='journal'] .observer-bar {
+  display: none;
+}
+.field-guide[data-view='journal'] .guide-footer {
+  margin-top: 24px;
+}
+@media (max-width: 900px) {
+  .sky-bento {
+    grid-template-columns: 1.1fr 1fr;
+  }
+  .sky-map-tile {
+    grid-row: span 2;
+  }
+  .observer-bar {
+    grid-template-columns: 1fr 1.2fr;
+  }
+  .constellation-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 600px) {
+  .guide-shell {
+    padding: 0 16px 16px;
+  }
+  .guide-top-actions {
+    gap: 14px;
+  }
+  .guide-tabs {
+    gap: 3px;
+    padding: 5px;
+    border-radius: 12px;
+  }
+  .guide-tabs button {
+    font-size: 10px;
+    padding: 12px 5px;
+  }
+  .guide-tabs button span {
+    display: inline;
+    font-size: 8px;
+  }
+  .observer-bar {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 16px 3px;
+  }
+  .observer-time {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+  .observer-time > div {
+    gap: 10px;
+  }
+  #observeTime {
+    width: 163px;
+    font-size: 11px;
+  }
+  .observer-time .field-eyebrow {
+    display: none;
+  }
+  .sky-bento {
+    gap: 10px;
+    grid-template-columns: 1fr 1fr;
+  }
+  .bento-tile {
+    padding: 18px;
+    border-radius: 15px;
+  }
+  .sky-map-tile {
+    grid-column: 1/-1;
+    grid-row: auto;
+  }
+  .sky-map-tile #localSkyChart {
+    max-width: 250px;
+    margin: 10px auto;
+  }
+  .sky-status-tile > p:not(.field-eyebrow) {
+    font-size: 11px;
+  }
+  .constellation-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .constellation-card {
+    padding: 15px;
+  }
+  .card-top {
+    display: block;
+    position: relative;
+    min-height: 100px;
+  }
+  .mini-pattern {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 46px;
+    height: 42px;
+    opacity: 0.7;
+  }
+  .card-top h4 {
+    font-size: 23px;
+    padding-top: 30px;
+  }
+  .card-status {
+    display: block;
+    font-size: 8px;
+  }
+  .card-status b {
+    display: block;
+    margin-top: 5px;
+  }
+  .constellation-card[open] {
+    grid-column: 1/-1;
+  }
+  .constellation-card[open] .card-top {
+    display: flex;
+    min-height: 70px;
+  }
+  .constellation-card[open] .card-top h4 {
+    padding-top: 0;
+  }
+  .constellation-card[open] .mini-pattern {
+    position: static;
+    width: 80px;
+    height: 70px;
+  }
+  .catalog-heading h3,
+  .section-intro h3,
+  .journal-heading h3 {
+    font-size: 27px;
+  }
+  .catalog-toolbar > select {
+    width: 110px;
+    font-size: 10px;
+    padding: 8px;
+  }
+  .plan-controls {
+    grid-template-columns: 1fr;
+    padding: 18px;
+  }
+  .plan-step {
+    grid-template-columns: 28px 1fr;
+    padding: 18px;
+    gap: 12px;
+  }
+  .plan-bearing {
+    grid-column: 2;
+    text-align: left;
+  }
+  .journal-heading {
+    gap: 12px;
+  }
+  .journal-heading .field-button {
+    font-size: 10px;
+    padding: 10px 12px;
+  }
+  .guide-footer {
+    display: block;
+  }
+  .guide-footer p {
+    margin-top: 12px;
+  }
+  .settings-panel {
+    padding: 20px;
+    border-radius: 16px;
+  }
+}
+@media (max-width: 360px) {
+  .constellation-grid {
+    grid-template-columns: 1fr;
+  }
+  .sky-bento {
+    grid-template-columns: 1fr;
+  }
+  .sky-map-tile,
+  .conditions-tile,
+  .sky-status-tile {
+    grid-column: 1;
+  }
+}
+[data-sky-key] {
+  cursor: pointer;
+}
+[data-sky-key] path {
+  pointer-events: stroke;
+  stroke-width: 2;
+}
+[data-sky-key] circle {
+  r: 2;
+}
+[data-sky-key]:hover path,
+[data-sky-key]:focus path {
+  stroke: #edf6ff;
+  opacity: 1;
+  stroke-width: 2.5;
+}
+.touch-grass {
+  position: absolute;
+  left: 50%;
+  top: 91%;
+  transform: translateX(-50%);
+  pointer-events: auto;
+  background: #12271bbf;
+  border: 1px solid #7aa58c66;
+  border-radius: 20px;
+  color: #bcd6c5;
+  padding: 10px 20px;
+  font: 11px var(--sans);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+.touch-grass:hover {
+  background: #254332;
+}
+.touch-grass:focus-visible {
+  outline: 2px solid #bcd6c5;
+  outline-offset: 4px;
+}
+.field-guide[data-view='atlas'] .constellation-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 16px;
+}
+.field-guide[data-view='atlas'] .constellation-card {
+  padding: 14px 18px;
+  border-radius: 12px;
+}
+.field-guide[data-view='atlas'] .card-top {
+  min-height: 62px;
+  gap: 18px;
+}
+.field-guide[data-view='atlas'] .card-number {
+  display: none;
+}
+.field-guide[data-view='atlas'] .card-top h4 {
+  font: 20px/1.3 var(--sans);
+  margin: 0 0 6px;
+}
+.field-guide[data-view='atlas'] .mini-pattern {
+  width: 55px;
+  height: 55px;
+}
+.field-guide[data-view='atlas'] .card-status {
+  display: none;
+}
+.field-guide[data-view='atlas'] .constellation-card[open] {
+  grid-column: 1/-1;
+  padding: 20px 24px;
+}
+.field-guide[data-view='atlas'] .constellation-card[open] .card-status {
+  display: flex;
+}
+.field-guide[data-view='atlas'] .card-detail {
+  max-width: 720px;
+}
+.field-guide[data-view='atlas'] .catalog-toolbar {
+  margin-bottom: 18px;
+}
+.field-guide[data-view='atlas'] .search-field {
+  margin-left: 0;
+  width: 100%;
+}
+.field-guide[data-view='atlas'] .search-field input {
+  width: 100% !important;
+  max-width: none;
+}
+.nearby-controls {
+  display: inline-flex;
+  gap: 4px;
+  background: #101c28;
+  border: 1px solid #283847;
+  border-radius: 12px;
+  padding: 5px;
+  margin: 0 0 18px;
+}
+.nearby-controls .field-button {
+  min-width: 125px;
+  border: 0;
+  background: none;
+  color: #99aebe;
+  min-height: 42px;
+  padding: 10px 20px;
+  border-radius: 8px;
+}
+.nearby-controls .primary {
+  background: #294157;
+  color: #edf5fc;
+}
+.nearby-grid {
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin: 0;
+}
+.nearby-prompt {
+  font: 12px/1.8 var(--sans);
+  color: #91a6b9;
+  padding: 22px 0;
+}
+.nearby-help {
+  margin-top: 24px;
+  font: 10px/1.8 var(--sans);
+  color: #8ba3b7;
+}
+.nearby-help summary {
+  cursor: pointer;
+}
+.nearby-help p {
+  max-width: 540px;
+  margin-top: 10px;
+}
+.place-card {
+  padding: 18px 22px;
+}
+.place-card .field-eyebrow {
+  display: none;
+}
+.place-card h4 {
+  font: 18px/1.4 var(--sans);
+}
+.place-card p {
+  margin: 8px 0;
+  font-size: 11px;
+}
+.place-card .text-button {
+  font-size: 10px;
+}
+.field-guide[data-view='nearby'] .observer-time {
+  display: none;
+}
+.field-guide[data-view='nearby'] .observer-bar {
+  grid-template-columns: 1fr;
+  padding-bottom: 0;
+}
+@media (max-width: 600px) {
+  .field-guide[data-view='atlas'] .constellation-grid {
+    grid-template-columns: 1fr;
+  }
+  .field-guide[data-view='atlas'] .card-top {
+    display: flex;
+    min-height: 60px;
+  }
+  .field-guide[data-view='atlas'] .card-top h4 {
+    padding-top: 0;
+    font-size: 17px;
+  }
+  .field-guide[data-view='atlas'] .mini-pattern {
+    position: static;
+    width: 48px;
+    height: 48px;
+  }
+  .field-guide[data-view='atlas'] .constellation-card[open] {
+    padding: 18px;
+  }
+  .guide-tabs button {
+    font-size: 9px;
+  }
+  .touch-grass {
+    top: 92%;
+    padding: 9px 18px;
+  }
+  .nearby-controls {
+    display: flex;
+  }
+  .nearby-controls .field-button {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+.field-guide .guide-shell {
+  max-width: 1440px;
+  padding: 0 48px 32px;
+  display: grid;
+  grid-template-columns: 184px minmax(0, 1fr);
+  column-gap: 52px;
+  align-content: start;
+  min-height: 100%;
+}
+.guide-shell > :not(.guide-topbar):not(.guide-tabs) {
+  grid-column: 2;
+  min-width: 0;
+}
+.field-guide .guide-topbar {
+  grid-column: 1/-1;
+  padding: 23px 0;
+  border-bottom: 1px solid var(--gold-faint);
+  margin-bottom: 0;
+}
+
+.field-guide .guide-tabs {
+  grid-column: 1;
+  grid-row: 2 / span 12;
+  position: sticky;
+  top: 28px;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 40px 0;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  backdrop-filter: none;
+}
+.guide-nav-label {
+  font: 9px var(--sans);
+  letter-spacing: 0.19em;
+  color: var(--dim-2);
+  padding: 0 14px 20px;
+}
+.field-guide .guide-tabs button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  padding: 14px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-size: 12px;
+  background: none;
+}
+.field-guide .guide-tabs button i {
+  font: 20px var(--serif);
+  width: 22px;
+  text-align: center;
+  font-style: normal;
+  color: var(--gold);
+}
+.field-guide .guide-tabs button[aria-current='page'] {
+  background: #b8cfe20b;
+  border-color: #b8cfe224;
+  box-shadow: none;
+  color: var(--ink);
+}
+.field-guide .guide-tabs button:hover {
+  background: #b8cfe210;
+}
+.field-guide .guide-tabs button span {
+  margin-left: auto;
+}
+
+.field-guide .observer-bar {
+  border-top: 1px solid var(--gold-faint);
+  border-bottom: 1px solid var(--gold-faint);
+  padding: 17px 0;
+  margin-bottom: 26px;
+  grid-template-columns: 1fr auto;
+}
+
+.field-guide .observer-time .field-eyebrow {
+  font-size: 8px;
+}
+.field-guide .sky-bento {
+  grid-template-columns: minmax(0, 1.4fr) minmax(220px, 1fr);
+  grid-template-rows: auto auto auto;
+  gap: 0;
+  margin: 0 0 30px;
+  border: 1px solid #b8cfe224;
+  border-radius: 16px;
+  background: radial-gradient(ellipse at 20% 40%, #1e3b552c, transparent 65%);
+  overflow: hidden;
+}
+.field-guide .sky-bento .bento-tile {
+  border: 0;
+  border-radius: 0;
+  background: none;
+  padding: 28px;
+}
+.field-guide .sky-map-tile {
+  grid-column: 1;
+  grid-row: 1 / 4;
+  border-right: 1px solid #b8cfe219 !important;
+}
+.field-guide .sky-map-tile #localSkyChart {
+  max-width: 350px;
+  margin: 12px auto;
+}
+
+.field-guide .sky-status-tile > p:not(.field-eyebrow) {
+  max-width: 270px;
+  line-height: 1.8;
+}
+
+.field-guide .guide-empty {
+  position: relative;
+  min-height: 380px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: left;
+  padding: 55px;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 90% 50%, #213d5540, transparent 70%);
+  border-color: #b8cfe224;
+}
+.field-guide .guide-empty > :not(.empty-orbit) {
+  position: relative;
+  z-index: 1;
+  max-width: 330px;
+}
+.field-guide .guide-empty h3 {
+  font: 44px/1.1 var(--serif);
+  margin: 10px 0;
+}
+.field-guide .guide-empty .field-eyebrow {
+  margin: 0;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+}
+.field-guide .guide-empty .text-button {
+  margin: 12px 0 0;
+}
+.empty-orbit {
+  position: absolute;
+  width: 310px;
+  height: 310px;
+  right: -40px;
+  top: 35px;
+  border: 1px solid #b8cfe22b;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--gold);
+  transform: rotate(-25deg);
+}
+.empty-orbit:before,
+.empty-orbit:after {
+  content: '';
+  position: absolute;
+  inset: 35px;
+  border: 1px dashed #b8cfe225;
+  border-radius: 50%;
+}
+.empty-orbit:after {
+  inset: 75px;
+  border-style: solid;
+}
+.empty-orbit span {
+  font-size: 50px;
+  text-shadow: 0 0 40px #94c8ff88;
+  animation: guide-star-breathe 6s ease-in-out infinite;
+}
+.empty-orbit b {
+  position: absolute;
+  top: 32px;
+  left: 47px;
+  font: 28px var(--serif);
+}
+.empty-orbit i {
+  position: absolute;
+  bottom: 35px;
+  right: 50px;
+  width: 5px;
+  height: 5px;
+  background: var(--gold);
+  border-radius: 50%;
+  box-shadow: 0 0 18px var(--gold);
+}
+@keyframes guide-star-breathe {
+  50% {
+    opacity: 0.5;
+    transform: scale(0.92);
+  }
+}
+
+.field-guide .constellation-grid,
+.field-guide[data-view='atlas'] .constellation-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 26px;
+}
+.field-guide .constellation-card,
+.field-guide[data-view='atlas'] .constellation-card {
+  border: 0;
+  border-top: 1px solid #b8cfe225;
+  border-radius: 0;
+  padding: 20px 2px;
+  background: none;
+  transform: none;
+}
+.field-guide .constellation-card:hover {
+  border-color: #7898b3;
+}
+.field-guide .card-number {
+  display: none;
+}
+.field-guide .card-top,
+.field-guide[data-view='atlas'] .card-top {
+  min-height: 65px;
+  display: flex;
+}
+.field-guide .card-top h4,
+.field-guide[data-view='atlas'] .card-top h4 {
+  font: 27px/1.2 var(--serif);
+  padding: 0;
+  margin: 0 0 8px;
+}
+.field-guide .mini-pattern {
+  position: static;
+  width: 66px;
+  height: 60px;
+}
+
+.field-guide .card-status {
+  border: 0;
+  margin-top: 10px;
+  padding: 0;
+  font-size: 10px;
+  display: flex;
+}
+.field-guide .constellation-card[open],
+.field-guide[data-view='atlas'] .constellation-card[open] {
+  grid-column: 1/-1;
+  padding: 22px;
+  background: #b8cfe207;
+  border-bottom: 1px solid #b8cfe225;
+}
+.field-guide .section-intro {
+  padding-top: 0;
+}
+.field-guide .section-intro h3,
+.field-guide .section-intro > p,
+.field-guide .journal-heading h3,
+.field-guide .journal-heading .field-eyebrow {
+  display: none;
+}
+.field-guide .section-intro {
+  padding: 0;
+}
+.field-guide .journal-heading {
+  margin: 0 0 22px;
+}
+.field-guide .guide-footer {
+  margin-top: 32px;
+  opacity: 0.7;
+}
+.field-guide[data-view='atlas'] .observer-bar {
+  display: none;
+}
+@media (min-width: 1100px) {
+}
+@media (max-width: 1000px) {
+  .field-guide .guide-shell {
+    padding: 0 28px 24px;
+    grid-template-columns: 155px minmax(0, 1fr);
+    column-gap: 28px;
+  }
+  .field-guide .sky-bento {
+    grid-template-columns: 1fr 1fr;
+  }
+  .field-guide .sky-bento .bento-tile {
+    padding: 20px;
+  }
+  .field-guide .observer-bar {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .field-guide .guide-empty {
+    padding: 36px;
+  }
+  .empty-orbit {
+    opacity: 0.55;
+    right: -130px;
+  }
+  .field-guide .guide-tabs button {
+    font-size: 11px;
+    padding: 12px 8px;
+    gap: 8px;
+  }
+}
+@media (max-width: 760px) {
+  .field-guide .guide-shell {
+    display: block;
+    padding: 0 20px 24px;
+  }
+  .field-guide .guide-topbar {
+    padding: 16px 0;
+  }
+  .field-guide .guide-tabs {
+    position: sticky;
+    top: 0;
+    flex-direction: row;
+    gap: 4px;
+    padding: 10px 0;
+    margin-bottom: 18px;
+    background: #05090ef2;
+    backdrop-filter: blur(15px);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .guide-nav-label,
+  .guide-nav-note {
+    display: none;
+  }
+  .field-guide .guide-tabs button {
+    flex: none;
+    gap: 6px;
+    font-size: 11px;
+    padding: 10px;
+  }
+  .field-guide .guide-tabs button i {
+    display: none;
+  }
+  .field-guide .guide-tabs button span {
+    display: none;
+  }
+  .field-guide .observer-bar {
+    padding-top: 0;
+    border-top: 0;
+  }
+  .field-guide .observer-time {
+    justify-content: flex-start;
+  }
+  .field-guide .observer-time .field-eyebrow {
+    display: none;
+  }
+  .field-guide .guide-empty {
+    min-height: 340px;
+    margin: 0;
+  }
+  .field-guide .guide-empty h3 {
+    font-size: 38px;
+  }
+  .field-guide .guide-empty > :not(.empty-orbit) {
+    max-width: 250px;
+  }
+}
+@media (max-width: 480px) {
+  .field-guide .sky-bento {
+    grid-template-columns: 1fr;
+  }
+  .field-guide .sky-map-tile {
+    grid-column: 1;
+    grid-row: 1;
+    border-right: 0 !important;
+    border-bottom: 1px solid #b8cfe219 !important;
+  }
+  .field-guide .sky-map-tile #localSkyChart {
+    max-width: 270px;
+  }
+  .field-guide .constellation-grid,
+  .field-guide[data-view='atlas'] .constellation-grid {
+    grid-template-columns: 1fr;
+  }
+  .field-guide .guide-empty {
+    padding: 30px 24px;
+  }
+  .empty-orbit {
+    right: -185px;
+    opacity: 0.35;
+  }
+  .field-guide .catalog-toolbar {
+    align-items: stretch;
+  }
+  .field-guide .catalog-toolbar .search-field {
+    flex-basis: 60%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .empty-orbit span {
+    animation: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .field-guide .guide-tabs {
+    display: grid;
+    grid-template-columns: 0.8fr 1.35fr 1.1fr 1fr 0.8fr;
+    gap: 2px;
+    overflow: visible;
+  }
+  .field-guide .guide-tabs button {
+    justify-content: center;
+    padding: 11px 2px;
+    font-size: 9px;
+    letter-spacing: 0;
+  }
+}
+
+.field-guide .guide-tabs {
+  grid-row: 2 / span 12;
+}
+.field-guide .observer-bar {
+  margin-top: 30px;
+}
+.field-guide .sky-bento {
+  display: block;
+  max-width: 850px;
+  margin: 0 auto;
+  background: radial-gradient(ellipse at 50% 50%, #1e3b552c, transparent 70%);
+}
+.field-guide .sky-map-tile {
+  border: 0 !important;
+  padding: 26px 36px !important;
+}
+.field-guide .sky-map-tile #localSkyChart {
+  max-width: min(58vh, 520px);
+  margin: 16px auto;
+}
+.field-guide .section-intro {
+  padding: 30px 0 22px;
+}
+.field-guide .section-intro h3,
+.field-guide .journal-heading h3 {
+  display: block;
+}
+.field-guide .journal-heading {
+  margin-top: 30px;
+}
+.field-guide[data-view='atlas'] .catalog-toolbar {
+  margin-top: 32px;
+}
+#detail:not(.open),
+body:not(.reading) #dim {
+  transition: none;
+}
+@media (max-width: 760px) {
+  .field-guide .guide-tabs {
+    margin-top: 14px;
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+  .field-guide .guide-tabs button {
+    font-size: 10px;
+    padding: 12px 10px;
+  }
+  .field-guide .observer-bar {
+    margin-top: 0;
+  }
+  .field-guide .sky-map-tile {
+    padding: 20px 14px !important;
+  }
+  .field-guide .sky-map-tile #localSkyChart {
+    max-width: 440px;
+  }
+  .field-guide .section-intro,
+  .field-guide .journal-heading {
+    margin-top: 0;
+    padding-top: 8px;
+  }
+}
+.field-guide .tile-heading:empty {
+  display: none;
+}
+.field-guide .field-button,
+.field-guide .field-button.primary {
+  position: relative;
+  isolation: isolate;
+  border: 1px solid var(--gold-dim);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  min-height: 44px;
+  padding: 12px 22px;
+  font: 11px/1.5 var(--sans);
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  transition:
+    border-color 0.4s ease,
+    box-shadow 0.65s ease;
+}
+.field-guide .field-button::before {
+  content: '';
+  position: absolute;
+  inset: 4.5px;
+  border: 1px dotted rgba(232, 236, 244, 0.4);
+  border-radius: inherit;
+  pointer-events: none;
+  transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.field-guide .field-button:hover {
+  background: transparent;
+  border-color: var(--gold);
+  box-shadow:
+    0 0 24px #b8cfe218,
+    inset 0 0 16px #b8cfe208;
+}
+.field-guide .field-button:hover::before {
+  transform: scale(1.015);
+}
+.field-guide .field-button:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+.field-guide .field-button:disabled {
+  opacity: 0.45;
+  cursor: wait;
+}
+.field-guide .plan-task:empty {
+  display: none;
+}
+.field-guide .field-button.lit {
+  border-color: rgba(160, 200, 255, 0.75);
+  box-shadow:
+    0 0 28px 2px rgba(96, 150, 255, 0.42),
+    0 0 9px rgba(130, 180, 255, 0.45);
+}
+.field-guide .nearby-controls {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  gap: 10px;
+  border-radius: 0;
+}
+.field-guide .nearby-controls .primary {
+  border-color: var(--gold);
+}
+.field-guide .guide-tabs button {
+  border-radius: 999px;
+}
+.field-guide .guide-tabs button[aria-current='page'] {
+  background: transparent;
+  border-color: var(--gold-dim);
+}
+.field-guide .guide-tabs button:hover {
+  background: transparent;
+  border-color: var(--gold);
+}
+.field-guide .catalog-caption p,
+.field-guide .guide-footer > span {
+  display: none;
+}
+.field-guide .guide-empty p,
+.field-guide .section-intro > p {
+  display: none;
+}
+.field-guide .sky-map-tile #localSkyChart {
+  margin: 0 auto 14px;
+}
+.field-guide .guide-footer {
+  margin-top: 20px;
+  justify-content: flex-end;
+}
+@media (max-width: 760px) {
+  .field-guide .guide-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    overflow: visible;
+    gap: 2px;
+  }
+  .field-guide .guide-tabs button {
+    white-space: normal;
+    line-height: 1.5;
+    font-size: 9px;
+    padding: 10px 3px;
+    min-height: 48px;
+  }
+}
+
+.field-guide[data-view='settings'] .observer-bar {
+  display: none;
+}
