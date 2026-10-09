@@ -1,0 +1,21 @@
+{
+  "name": "nightsky",
+  "version": "1.0.0",
+  "description": "Explore the Night Sky - Stargazing web application with 88 IAU constellations",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.cjs"
+  },
+  "keywords": [
+    "astronomy",
+    "constellations",
+    "threejs",
+    "canvas",
+    "web-audio"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "astronomy-engine": "^2.1.19"
+  }
+}
